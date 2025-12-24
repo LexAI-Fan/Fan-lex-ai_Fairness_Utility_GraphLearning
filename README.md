@@ -10,7 +10,6 @@ It includes:
 - a controllable regularization knob (lambda / fair_lambda)
 - result artifacts saved as JSON under results/
 
-
 The focus is reproducibility and auditability: one command produces one JSON artifact with configuration and metrics.
 
 ## Contents
@@ -52,27 +51,14 @@ Example (node classification):
 
 python .\src\train_nodeclf.py --epochs 50
 
+Quick check: 50 epochs (fast sanity run).
+Evidence run: 200 epochs (used for the example artifact below).
+
 Example (link prediction):
 
 python .\src\train_linkpred.py --epochs 50
 
 All runs write a JSON artifact into results/.
-
-## Evidence (one reproducible run)
-
-Command used (Windows PowerShell):
-
-python .\src\train_nodeclf.py --epochs 50
-
-Example output artifact:
-
-docs\example_run_seed0.json
-
-Key fields recorded in the JSON:
-
-- acc (or auc): <fill from JSON>
-- dp_gap: <fill from JSON>
-- eo_gap: <fill from JSON>
 
 ## Evidence (one reproducible run)
 
@@ -85,12 +71,11 @@ Example output artifact:
 docs\example_run_seed0.json
 (original run file: results\nodeclf_LocalSBM_lambda0.0_degree_20251224-151142.json)
 
-Key fields:
+Console summary from the run:
 
 - test_acc: 1.0000
 - dp: 0.0487
 - eo: 0.0000
-
 
 ## Making figures
 
@@ -105,6 +90,8 @@ Figures will be written to docs/figures/ (or the output path defined in the scri
 - If a synthetic group attribute is used, it is for demonstrating the evaluation pipeline and should not be interpreted as a protected attribute.
 - DP/EO gaps here are simple baselines intended for transparency and quick inspection.
 - Graph fairness is sensitive to graph structure and data assumptions; interpret results with the stated configuration in each JSON artifact.
+
+A small example artifact is included under docs/ for quick review of the JSON schema and logged metrics.
 
 ## License
 
