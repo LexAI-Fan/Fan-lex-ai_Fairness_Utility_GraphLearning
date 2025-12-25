@@ -4,11 +4,13 @@ This repository provides a small, reproducible scaffold for studying **utilityâ€
 
 Default experiments use a **synthetic LocalSBM graph** and log **configuration + metrics** as **one JSON artifact per run** under `results/`.
 
-## Description (3 lines)
+## Description 
 
-- **What:** Run reproducible LocalSBM graph experiments (node classification + link prediction) with a fairness regularization knob (`--fair_lambda`) and report utility + fairness metrics (Acc/AUC, DP, EO).
-- **How:** `python .\src\train_nodeclf.py --epochs 50` and `python .\src\train_linkpred.py --epochs 50`; generate plots with `python .\make_figures.py`.
-- **Outputs:** Per-run JSON artifacts in `results/`, example artifacts in `docs/example_*.json`, and trade-off figures in `docs/figures/fig_node_tradeoff.png` and `docs/figures/fig_link_tradeoff.png`.
+What: Reproducible LocalSBM graph experiments (node classification + link prediction) with a fairness regularizer (fair_lambda) and DP/EO evaluation.
+
+How: python .\src\train_nodeclf.py --epochs 50 and python .\src\train_linkpred.py --epochs 50; then python .\make_figures.py.
+
+Outputs: Per-run JSON artifacts in results/, example artifacts in docs/example_*.json, and trade-off plots in docs/figures/.
 
 ---
 
