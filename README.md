@@ -69,6 +69,7 @@ python .\src\train_nodeclf.py --epochs 200
 Example output artifact:
 
 docs\example_run_seed0.json
+This file is a copy of a results/ artifact for quick review.
 (original run file: results\nodeclf_LocalSBM_lambda0.0_degree_20251224-151142.json)
 
 Console summary from the run:
