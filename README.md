@@ -1,18 +1,14 @@
 # Fairness–Utility Trade-offs in Graph Learning
 
-This repository provides a small, reproducible scaffold for studying **utility–fairness trade-offs** in graph learning.
+A small, reproducible scaffold for studying **utility–fairness trade-offs** in graph learning.
 
-Default experiments use a **synthetic LocalSBM graph** and log **configuration + metrics** as **one JSON artifact per run** under `results/`.
+Default experiments use a synthetic **LocalSBM** graph and log configuration + metrics as **one JSON artifact per run** under `results/`.
 
-## Description 
+## Description (3 lines)
 
-What: Reproducible LocalSBM graph experiments (node classification + link prediction) with a fairness regularizer (fair_lambda) and DP/EO evaluation.
-
-How: python .\src\train_nodeclf.py --epochs 50 and python .\src\train_linkpred.py --epochs 50; then python .\make_figures.py.
-
-Outputs: Per-run JSON artifacts in results/, example artifacts in docs/example_*.json, and trade-off plots in docs/figures/.
-
----
+- **What:** Reproducible LocalSBM graph experiments (node classification + link prediction) with a fairness regularizer (`--fair_lambda`) and DP/EO evaluation.
+- **How:** Run `python .\src\train_nodeclf.py --epochs 50` and `python .\src\train_linkpred.py --epochs 50`; then `python .\make_figures.py`.
+- **Outputs:** Per-run JSON artifacts in `results/`, curated example artifacts in `docs/example_*.json`, and trade-off plots in `docs/figures/`.
 
 ## What’s included
 
@@ -21,7 +17,7 @@ Outputs: Per-run JSON artifacts in results/, example artifacts in docs/example_*
 - A controllable fairness regularization knob: `--fair_lambda`
 - Reproducible run artifacts: JSON logs saved under `results/`
 
-The focus is **reproducibility and auditability**: *one command → one JSON artifact* (config + metrics).
+**Design goal:** reproducibility and auditability — **one command → one JSON artifact** (config + metrics).
 
 ## Repository layout
 
@@ -32,14 +28,12 @@ The focus is **reproducibility and auditability**: *one command → one JSON art
   - `utils.py`: seeds, logging, helpers
   - `train_nodeclf.py`: node classification training and evaluation
   - `train_linkpred.py`: link prediction training and evaluation
-- `results/`
+- `results/`  
   - experiment outputs (JSON artifacts; typically not committed)
-- `make_figures.py`
+- `make_figures.py`  
   - figure generation from saved JSON artifacts
 - `docs/`
   - `figures/` and small example artifacts for review
-
----
 
 ## Environment setup (Windows PowerShell)
 
