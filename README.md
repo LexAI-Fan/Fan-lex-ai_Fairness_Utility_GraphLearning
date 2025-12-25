@@ -2,26 +2,26 @@
 
 This repository provides a small, reproducible scaffold for studying **utility–fairness trade-offs** in graph learning.
 
-Current default runs use a **synthetic graph setting (LocalSBM)** and log metrics to **JSON artifacts under `results/`**.
-
-It includes:
-- Node classification and link prediction experiments
-- Simple fairness metrics (**DP**, **EO**) for auditing
-- A controllable fairness regularization knob (**`fair_lambda`**)
-- Per-run JSON artifacts saved under `results/` (config + metrics)
-
-The focus is **reproducibility and auditability**: **one command produces one JSON artifact** containing configuration + metrics.
-
----
+Default experiments use a **synthetic LocalSBM graph** and log **configuration + metrics** as **one JSON artifact per run** under `results/`.
 
 ## Description (3 lines)
 
-- **What:** Runs reproducible LocalSBM graph experiments for node classification and link prediction with fairness regularization (`fair_lambda`), logging utility + fairness metrics (Acc/AUC, DP/EO).
-- **How:** `python .\src\train_nodeclf.py --epochs 50` and `python .\src\train_linkpred.py --epochs 50`; generate plots via `python .\make_figures.py`.
-- **Outputs:** JSON artifacts in `results/`, example artifacts in `docs/example_*.json`, and figures in `docs/figures/fig_node_tradeoff.png` + `docs/figures/fig_link_tradeoff.png`.
-**
+- **What:** Run reproducible LocalSBM graph experiments (node classification + link prediction) with a fairness regularization knob (`--fair_lambda`) and report utility + fairness metrics (Acc/AUC, DP, EO).
+- **How:** `python .\src\train_nodeclf.py --epochs 50` and `python .\src\train_linkpred.py --epochs 50`; generate plots with `python .\make_figures.py`.
+- **Outputs:** Per-run JSON artifacts in `results/`, example artifacts in `docs/example_*.json`, and trade-off figures in `docs/figures/fig_node_tradeoff.png` and `docs/figures/fig_link_tradeoff.png`.
 
-## Contents
+---
+
+## What’s included
+
+- Node classification and link prediction experiments
+- Simple fairness metrics: **DP** (Demographic Parity), **EO** (Equalized Odds)
+- A controllable fairness regularization knob: `--fair_lambda`
+- Reproducible run artifacts: JSON logs saved under `results/`
+
+The focus is **reproducibility and auditability**: *one command → one JSON artifact* (config + metrics).
+
+## Repository layout
 
 - `src/`
   - `data.py`: data loading / synthetic graph generation
@@ -31,11 +31,11 @@ The focus is **reproducibility and auditability**: **one command produces one JS
   - `train_nodeclf.py`: node classification training and evaluation
   - `train_linkpred.py`: link prediction training and evaluation
 - `results/`
-  - experiment outputs (JSON artifacts)
+  - experiment outputs (JSON artifacts; typically not committed)
 - `make_figures.py`
   - figure generation from saved JSON artifacts
 - `docs/`
-  - `figures/` and a small example artifact for review
+  - `figures/` and small example artifacts for review
 
 ---
 
