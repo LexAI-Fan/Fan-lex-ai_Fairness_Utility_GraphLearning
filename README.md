@@ -6,13 +6,20 @@ Current default runs use a **synthetic graph setting (LocalSBM)** and log metric
 
 It includes:
 - Node classification and link prediction experiments
-- Simple fairness metrics (**DP**, **EO**)
-- A controllable regularization knob (**`lambda` / `fair_lambda`**)
-- Result artifacts saved as JSON under `results/`
+- Simple fairness metrics (**DP**, **EO**) for auditing
+- A controllable fairness regularization knob (**`fair_lambda`**)
+- Per-run JSON artifacts saved under `results/` (config + metrics)
 
 The focus is **reproducibility and auditability**: **one command produces one JSON artifact** containing configuration + metrics.
 
 ---
+
+## Description (3 lines)
+
+- **What:** Runs reproducible LocalSBM graph experiments for node classification and link prediction with fairness regularization (`fair_lambda`), logging utility + fairness metrics (Acc/AUC, DP/EO).
+- **How:** `python .\src\train_nodeclf.py --epochs 50` and `python .\src\train_linkpred.py --epochs 50`; generate plots via `python .\make_figures.py`.
+- **Outputs:** JSON artifacts in `results/`, example artifacts in `docs/example_*.json`, and figures in `docs/figures/fig_node_tradeoff.png` + `docs/figures/fig_link_tradeoff.png`.
+**
 
 ## Contents
 
