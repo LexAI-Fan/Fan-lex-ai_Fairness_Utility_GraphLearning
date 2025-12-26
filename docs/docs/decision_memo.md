@@ -1,33 +1,45 @@
-# Decision memo — Fairness–Utility Trade-offs in Graph Learning
+# Decision Memo — Fairness–Utility Trade-offs in Graph Learning
 
-**Owner:** Fan Xuejiao (Ariel)  
-**Repo:** https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning
-**Release:** https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning/releases/tag/v1.0.0 
-**Last updated:** 2025-12-25
+**Repo:** https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning  
+**Release:** v1.0.0 — https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning/releases/tag/v1.0.0  
+**Last updated:** 2025-12-26
 
-## 1) Problem & setting
-This mini-study asks a practical question: when we regularise for group fairness in graph learning, what utility do we give up, and what does the trade-off curve look like across tasks?  
-I focus on a controlled synthetic graph (**LocalSBM**) to make behaviour easy to interpret, and keep support for Planetoid datasets (**Cora/Citeseer/Pubmed**) for external validity once the environment can reliably download/cache them.
+---
 
-## 2) Methods
-The repository provides two training pipelines: `train_nodeclf.py` (node classification; utility = accuracy) and `train_linkpred.py` (link prediction; utility = AUC/AP).  
-Fairness is evaluated with two lightweight group metrics: **DP (Demographic Parity)** and **EO (Equalized Odds)**. A single regularisation knob `--fair_lambda` is swept over a small grid to trace the utility–fairness frontier, rather than selecting one “best” setting.
+## 1) Problem & setting (LocalSBM + Planetoid)
+This project studies a practical question: when adding a fairness objective to graph learning, how much utility is sacrificed, and where does the “knee” of the trade-off appear?  
+Experiments run on a synthetic **LocalSBM** graph by default (fast, controlled), and the code path also supports **Planetoid** datasets (Cora/Citeseer/Pubmed) for a more realistic check.
 
-## 3) Reproducibility guarantees
-Each run writes **one JSON artifact** containing configuration + metrics to `results/`, so every number in the figures can be traced back to a concrete run.  
-The sweep is scripted (`scripts/run_sweep.ps1`) to minimise manual command drift. Figures are regenerated from JSON only (`make_figures.py`), which keeps plotting deterministic and audit-friendly.
+## 2) Methods (nodeclf/linkpred + DP/EO + fair_lambda sweep)
+Two tasks are covered: **node classification** and **link prediction**, each trained with a fairness regularizer controlled by a single knob `--fair_lambda (λ)`.  
+Fairness is evaluated with **DP (Demographic Parity)** and **EO (Equalized Odds)** to keep the audit surface small while still capturing “selection parity” and “error parity” perspectives.
 
-## 4) Key findings (summary)
-The fairness–utility relationship is not linear. In the current sweep, **utility changes are small up to λ ≈ 0.3, then drop faster** as regularisation increases.  
-On the fairness side, **DP improves early and then plateaus after roughly λ ≈ 0.3**, suggesting diminishing returns beyond that point.  
-Across tasks, the same qualitative pattern appears: the “interesting region” is around moderate λ values where fairness moves meaningfully but utility remains relatively stable.
+## 3) Reproducibility guarantees (one run → one JSON; scripted sweep)
+Each run writes **one JSON artifact** containing configuration + metrics (the unit of evidence is a file, not a screenshot).  
+A sweep is scripted via `scripts/run_sweep.ps1`, and plots are regenerated deterministically from saved artifacts with `python .\make_figures.py`.
 
-## 5) Limitations
-Planetoid runs can fail in restricted networks because dataset download/caching depends on external hosts; this is an environment constraint rather than a modelling issue.  
-DP/EO are intentionally simplified summaries of group behaviour, and the “sensitive attribute” in LocalSBM is synthetic. The goal here is a clean, reproducible scaffold rather than a full socio-technical fairness assessment.
+## 4) Key findings (from docs/results_summary.md)
+Across the tested λ values, **utility remains relatively stable up to λ≈0.3, then drops faster**—suggesting a knee region where fairness pressure becomes costly.  
+In contrast, **DP improves early and then largely plateaus after λ≈0.3**, indicating diminishing fairness returns beyond that point.  
+This pattern is visible in both node and link trade-off plots, with task-specific sensitivity.
+See: docs/results_summary.md for the run table and plots.
 
-## 6) Next steps
-1) **Pareto frontier:** compute non-dominated points from the JSON artifacts (max utility, min unfairness) and annotate them in the plots for clearer model selection.  
-2) **Real datasets (robustly):** add an offline-friendly path (document cache location + optional manual download) and rerun the same sweep on Cora/Citeseer/Pubmed.  
-3) **Richer evaluation:** extend beyond DP/EO (e.g., additional fairness metrics and basic uncertainty/calibration checks) and run a small sensitivity check so the trade-off story is not tied to one setting.
+## 5) Limitations (what this does *not* claim yet)
+Planetoid runs require dataset download; if network access is restricted, the “real data” sweep may fail unless cached locally.  
+DP/EO are intentionally simplified; they do not cover intersectional groups, richer sensitive attributes, or robustness under dataset shift.  
+Results here are meant as a reproducible scaffold and a transparent baseline, not as a final fairness benchmark.
 
+## 6) Next steps (what I would do to strengthen this as research)
+Compute and plot the **Pareto frontier** from saved JSON artifacts (explicit multi-objective selection rather than eyeballing curves).  
+Add stronger fairness suites (e.g., calibration-by-group, equal opportunity variants, intersectional slices) and more realistic sensitive-attribute definitions.  
+Make Planetoid fully offline-friendly (download once, cache in `data/`, document a no-network workflow).
+
+---
+
+### Quick reproduce (Windows PowerShell)
+```powershell
+python .\src\train_nodeclf.py --dataset LocalSBM --epochs 200 --fair_lambda 0.3
+python .\src\train_linkpred.py --dataset LocalSBM --epochs 50  --fair_lambda 0.3
+python .\make_figures.py
+# full sweep:
+.\scripts\run_sweep.ps1
