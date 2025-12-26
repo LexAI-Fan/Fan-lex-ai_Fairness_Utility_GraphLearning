@@ -34,6 +34,14 @@ Default experiments use a synthetic **LocalSBM** graph and log configuration + m
   - figure generation from saved JSON artifacts
 - `docs/`
   - `figures/` and small example artifacts for review
+## Figures
+
+**Node classification (utility vs fairness)**  
+![Node trade-off](docs/figures/fig_node_tradeoff.png)
+
+**Link prediction (utility vs fairness)**  
+![Link trade-off](docs/figures/fig_link_tradeoff.png)
+
 
 ## Environment setup (Windows PowerShell)
 
