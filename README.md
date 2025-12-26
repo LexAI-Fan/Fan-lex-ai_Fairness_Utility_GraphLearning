@@ -1,5 +1,5 @@
 # Fairness–Utility Trade-offs in Graph Learning
-
+Status: v1.0.0 released (reproducible)
 A small, reproducible scaffold for studying **utility–fairness trade-offs** in graph learning.
 
 Default experiments use a synthetic **LocalSBM** graph and log configuration + metrics as **one JSON artifact per run** under `results/`.
