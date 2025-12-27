@@ -1,18 +1,24 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
 title: "Fairness–Utility Trade-offs in Graph Learning"
+message: "If you use this software, please cite it as below."
 type: software
+
 authors:
   - family-names: "Fan"
     given-names: "Xuejiao"
     alias: "LexAI-Fan"
+
 repository-code: "https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning"
+url: "https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning"
 license: MIT
-version: 1.0.0
-date-released: 2025-12-25
+version: 1.1.0
+date-released: 2025-12-27
+
 keywords:
   - graph learning
   - fairness
   - demographic parity
   - equalized odds
   - reproducibility
+  - human-computer interaction
+
