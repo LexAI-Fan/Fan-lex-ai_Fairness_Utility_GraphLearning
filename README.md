@@ -41,7 +41,9 @@ Default experiments use a synthetic **LocalSBM** graph and log configuration + m
 
 **Link prediction (utility vs fairness)**  
 ![Link trade-off](docs/figures/fig_link_tradeoff.png)
-Pilot study results (N=6) → docs/pilot_hci_study.md
+
+**Pilot study results (N=6):** [docs/pilot_hci_study.md](docs/pilot_hci_study.md)
+
 
 ## Environment setup (Windows PowerShell)
 
