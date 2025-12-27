@@ -1,6 +1,10 @@
 # Fairness–Utility Trade-offs in Graph Learning
-Status: v1.0.0 released (reproducible)
-A small, reproducible scaffold for studying **utility–fairness trade-offs** in graph learning.
+Status: v1.1.0 released (reproducible)
+
+This repository provides a small, reproducible scaffold for studying utility–fairness trade-offs in graph learning.
+
+**Quick links:** [Release v1.1.0](https://github.com/LexAI-Fan/Fan-lex-ai_Fairness_Utility_GraphLearning/releases/tag/v1.1.0) · [Pilot (N=6)](docs/pilot_hci_study.md) · [Reproduce](scripts/run_sweep.ps1)
+
 
 Default experiments use a synthetic **LocalSBM** graph and log configuration + metrics as **one JSON artifact per run** under `results/`.
 
